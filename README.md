@@ -1,11 +1,10 @@
-### Let's Chat
+# Let's Chat
 
-# Simple chat room application using socket.io
+## Simple chat room application using socket.io
 
 ## Installation:
 
-``` npm install --save socket.io
-```
+```npm install --save socket.io```
 
 ## Usage:
 
@@ -16,6 +15,3 @@
 **using node js**
 
 ```node main.js```
-
-
-
