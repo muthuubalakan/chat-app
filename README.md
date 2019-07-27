@@ -3,6 +3,11 @@
 ## Simple chat room application using socket.io
 
 ## Installation:
+### Dependencies:
+
+Express js
+Jquery
+emojionearea
 
 ```npm install --save socket.io```
 
