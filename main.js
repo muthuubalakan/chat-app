@@ -2,7 +2,8 @@
 // Express is a node js web framework
 var app = require("express")();
 var http = require("http").Server(app);
-var port = 4000;
+var port = 9090;
+var host = "127.0.0.1"
 
 // bind with socket. Use socket.io
 var io = require("socket.io")(http);

@@ -2,63 +2,90 @@
 <html>
 <head>
 	<title>Let's Chat</title>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
-	<script src="http://1.2.3.4/js/bootstrap.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="http://1.2.3.4/css/bootstrap.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<script type="text/javascript" src="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
+	<style>
+		.material-icons{
+			padding: 5px;
+		}
+	</style>
 </head>
-
 <body>
 	<nav class="navbar navbar-light bg-light">
-				<a class="navbar-brand" href="#">
-				 Chat App
-				</a>
+		<a class="navbar-brand" href="#">
+			<i class="material-icons">chat</i><span>Let's Chat</span>
+		</a>
 	</nav>
-	<div class="container" style="margin-left: 30%; width: 500px;">
-
-
-	<div class="row">
-		<div class="col-4">
-			<ul id="people" class="list-group"></ul>
-		</div>
-		<div class="col-8">
-			<ul id="msgs" class="list-group"></ul>
+	<div class="container-fluid" style="height: 95%;">
+		<!-- Registeration -->
+		<div class="row" >
+			<div class="col-4" id="login">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12">
+							<div class="jumbotron jumbotron-fluid">
+								<div class="container" style="height: 100%;">
+									<h1 class="display-4">Welcome</h1>
+									<p class="lead">
+										<i class="material-icons">
+											person
+										</i>
+										people online
+									</p>
+									<ul style="height: 200px; overflow-y: scroll;" id="people" class="display-4"></ul>
+									<form>
+										<div class="form-group">
+											<input style="width: 100%;" type="text" class="input-small" placeholder="Your name" id="name">	
+										</div>	
+										<button type="submit" id="join" value="Join" class="btn btn-primary">Submit</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-8" style="height: 600px;">
+				<div id="chat" style="height: 100%;">
+					<div class="container" style="min-height: 100%; height: 100%;">
+						<div class="row" style="height: 400px; overflow-y: scroll;">
+							<div class="col">
+									<div id="people-joined" class="alert alert-success" role="alert">
+									</div>
+								<ul id="msgs" class="list-group"></ul>
+							</div>
+						</div>
+						<div class="row align-items-end">
+							<div class="col">
+								<form id="2">
+									<textarea class="form-control" id="msg" rows="3"></textarea>
+									<button  id="send" value="Send" class="btn btn-primary">Send</button>
+									<button type="button" id="clear" class="btn btn-outline-primary">Clear all</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-12" id="login">
-			<form class="form-inline" style="width: 100%;">
-				<input style="width: 100%;" type="text" class="input-small" placeholder="Your name" id="name">
-				<input type="button" name="join" id="join" value="Join" class="btn btn-primary">
-			</form>
-		</div>
-
-		<div class="col-12" id="chat">
-			<form id="2" class="form-inline">
-				<input  style="width: 100%;" type="text" class="input" placeholder="Your message" id="msg">
-				<input type="button" name="send" id="send" value="Send" class="btn btn-success">
-			</form>
-		</div>
-	</div>
-</div>
-</div>
 </body>
-
-<script type="text/javascript">
-	$(function(){
-
+<script>
+	$(document).ready(function(){
+		$("#msg").emojioneArea({
+		});
 		var socket = io();
 		// hide the chat 
 		$("#chat").hide();
-
+		$("#people-joined").hide();
 		// get the name first
 		$("#name").focus();
-
 		$("form").submit(function(event){
 			event.preventDefault();
 		});
@@ -66,10 +93,15 @@
 			var name = $("#name").val();
 			if (name != "") {
 				socket.emit("join", name);
-				$("#login").detach();
+				// $("#login").detach();
 				$("#chat").show();
 				$("#msg").focus();
+				$("#people-joined").show();
+				setTimeout(function(){
+					$('#people-joined').hide();
+				}, 2000);
 				ready = true;
+				$("#name").val('');
 			}
 		});
 		$("#name").keypress(function(arg) {
@@ -78,7 +110,8 @@
 				if (name != "") {
 					socket.emit("join", name);
 					ready = true;
-							$("#login").detach();
+					$("#login").detach();
+					$("#people").show();
 					$("#chat").show();
 					$("#msg").focus();
 				}
@@ -86,19 +119,20 @@
 		});
 		socket.on("update", function(msg) {
 			if(ready)
-				$("#msgs").append("<li class='list-group-item list-group-item-primary'>" + msg + "</li>");
+			$("#people-joined").append(msg);
+			$("#people").show();
 		})
 		socket.on("update-people", function(people){
 			if(ready) {
 				$("#people").empty();
 				$.each(people, function(clientid, name) {
-					$('#people').append("<li class='list-group-item list-group-item-secondary'>" + name + "</li>");
+					$('#people').append("<li style='list-style: none; font-size: 18px;'>" + "<i class='material-icons'>face</i>" + name + "</li>");
 				});
 			}
 		});
 		socket.on("chat", function(who, msg){
 			if(ready) {
-				$("#msgs").append("<li><strong><span class='text-success'>" + who + "</span></strong> says: " + msg + "</li>");
+				$("#msgs").append("<p><strong><span style='color: #007bff;'>" + who + "</span></strong>: " + msg + "</p>");
 			}
 		});
 		socket.on("disconnect", function(){
@@ -109,13 +143,22 @@
 		$("#send").click(function(){
 			var msg = $("#msg").val();
 			socket.emit("send", msg);
-			$("#msg").val("");
+			$("#msg").val('');
+	
 		});
 		$("#msg").keypress(function(e){
 			if(e.which == 13) {
 				var msg = $("#msg").val();
 				socket.emit("send", msg);
 				$("#msg").val("");
+			}
+		});
+		$("#clear").click(function(){
+			try {
+				$("#msgs").empty();
+				$("#msg").val('');
+			} catch (error) {
+				console.log("Error: ", error);
 			}
 		});
 	});
