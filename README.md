@@ -5,9 +5,10 @@
 ## Installation:
 ### Dependencies:
 
-Express js
-Jquery
-emojionearea
+- Express js
+- Jquery
+- emojionearea
+- fs
 
 ```npm install --save socket.io```
 

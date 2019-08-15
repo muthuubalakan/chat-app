@@ -8,6 +8,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<script type="text/javascript" src="static/js/handler.js"></script>
 	<script type="text/javascript" src="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
 	<style>
@@ -16,7 +17,7 @@
 		}
 	</style>
 </head>
-<body>
+
 	<nav class="navbar navbar-light bg-light">
 		<a class="navbar-brand" href="#">
 			<i class="material-icons">chat</i><span>Let's Chat</span>
@@ -76,91 +77,4 @@
 		</div>
 	</div>
 </body>
-<script>
-	$(document).ready(function(){
-		$("#msg").emojioneArea({
-		});
-		var socket = io();
-		// hide the chat 
-		$("#chat").hide();
-		$("#people-joined").hide();
-		// get the name first
-		$("#name").focus();
-		$("form").submit(function(event){
-			event.preventDefault();
-		});
-		$("#join").click(function(){
-			var name = $("#name").val();
-			if (name != "") {
-				socket.emit("join", name);
-				// $("#login").detach();
-				$("#chat").show();
-				$("#msg").focus();
-				$("#people-joined").show();
-				setTimeout(function(){
-					$('#people-joined').hide();
-				}, 2000);
-				ready = true;
-				$("#name").val('');
-			}
-		});
-		$("#name").keypress(function(arg) {
-			if (arg.which == 13) {
-				var name = $("'name").val();
-				if (name != "") {
-					socket.emit("join", name);
-					ready = true;
-					$("#login").detach();
-					$("#people").show();
-					$("#chat").show();
-					$("#msg").focus();
-				}
-			}
-		});
-		socket.on("update", function(msg) {
-			if(ready)
-			$("#people-joined").append(msg);
-			$("#people").show();
-		})
-		socket.on("update-people", function(people){
-			if(ready) {
-				$("#people").empty();
-				$.each(people, function(clientid, name) {
-					$('#people').append("<li style='list-style: none; font-size: 18px;'>" + "<i class='material-icons'>face</i>" + name + "</li>");
-				});
-			}
-		});
-		socket.on("chat", function(who, msg){
-			if(ready) {
-				$("#msgs").append("<p><strong><span style='color: #007bff;'>" + who + "</span></strong>: " + msg + "</p>");
-			}
-		});
-		socket.on("disconnect", function(){
-			$("#msgs").append("<li><strong><span class='text-warning'>The server is not available</span></strong></li>");
-			$("#msg").attr("disabled", "disabled");
-			$("#send").attr("disabled", "disabled");
-		});
-		$("#send").click(function(){
-			var msg = $("#msg").val();
-			socket.emit("send", msg);
-			$("#msg").val('');
-	
-		});
-		$("#msg").keypress(function(e){
-			if(e.which == 13) {
-				var msg = $("#msg").val();
-				socket.emit("send", msg);
-				$("#msg").val("");
-			}
-		});
-		$("#clear").click(function(){
-			try {
-				$("#msgs").empty();
-				$("#msg").val('');
-			} catch (error) {
-				console.log("Error: ", error);
-			}
-		});
-	});
-</script>
 </html>
