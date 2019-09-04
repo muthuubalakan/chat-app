@@ -1,0 +1,66 @@
+html {
+    height: 100%;
+    margin: 0;
+  }
+
+body, .app-view {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+
+
+.navbar {
+    height: 60px;
+    color: white;
+    background: black;
+}
+
+
+.container-fluid{
+    height: calc(100vh - 60px);
+}
+
+.jumbotron{
+    padding: 0;
+    margin: 0;
+    height: calc(98vh - 60px);
+}
+
+
+.chat-area{
+    margin-top: 20px;
+    height: calc(96vh - 60px);
+}
+
+.text-area{
+    height: calc(80vh - 100px);;
+    bottom: 0;
+
+}
+
+.navbar a{
+    color: white;
+}
+
+.main-view{
+    flex-grow: 1;
+}
+
+
+.material-icons{
+    padding: 5px;
+}
+
+
+@media only screen and (max-width: 1026px) {
+.jumbotron {
+height:200px;
+}
+#name, .form-group{
+    width: 100%;
+}
+
+}

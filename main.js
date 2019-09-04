@@ -5,28 +5,36 @@ const fs = require('fs');
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+var firebase = require('firebase');
 
-
-const port = 9090;
+const port = 9990;
 const path = __dirname + '/app';
-const chatHtml = path + '/chat.html';
+const chatHtml = path + '/index.html';
 const staticdir = path + '/static';
+const users = "Users";
+
+var people = {};
+
+var firebaseConfig = {
+
+  };
 
 
+firebase.initializeApp(firebaseConfig);;
+
+var db = firebase.database();
+db.ref('/mainchat').set({4: 'test chat'});
+  
 var serverError = `
-				 <div style="margin-left: 40%; font-size: 20px; margin-top: 20%; font-family:'Roboto',arial,sans-serif; width: 600px; height: 400px;">
-				 <h1 style="font-size: 20px>Unexpected Server Error! &#128533</h1>
-				 <h6>Please try again later!</h6>
-				 </div>
-				  `;
+<div style="margin-left: 40%; font-size: 20px; margin-top: 20%; font-family:'Roboto',arial,sans-serif; width: 600px; height: 400px;">
+<h1 style="font-size: 20px>Unexpected Server Error! &#128533</h1>
+<h6>Please try again later!</h6>
+</div>
+ `;
 
 
 function isFile(filename){
-	if (fs.promises.access(filename)){
-		return true;
-	}else{
-		return false;
-	}
+	return fs.existsSync(filename);
 }
 
 
@@ -34,11 +42,17 @@ app.get("/", async(req, res)=> {
 	if (req.method !== 'GET'){
 		res.status(400).end();
 	}
-	if(isFile(chatHtml) == false){
-		res.status(500).send(serverError);
-	}
-	res.sendFile(chatHtml);
+	isFile(chatHtml) ? res.sendFile(chatHtml) : res.status(500).send(serverError);
 });
+
+
+app.get("/login", async(req, res)=> {
+	if (req.method !== 'GET'){
+		res.status(400).end();
+	}
+	isFile(chatHtml) ? res.sendFile(chatHtml) : res.status(500).send(serverError);
+});
+
 
 
 app.use('/static', express.static(staticdir))
@@ -55,6 +69,7 @@ io.on("connection", function(socket){
 	socket.on("send", function(msg){
 		io.sockets.emit("chat", people[socket.id], msg);
 	});
+
 	socket.on("disconnect", function(){
 		io.sockets.emit("update", people[socket.id] + "disconnected");
 		delete people[socket.id];

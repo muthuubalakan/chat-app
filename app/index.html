@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="LChat">
+<head>
+	<title>Let's Chat</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+	<script src="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.js" type="text/javascript" ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+	<script src="static/assets/js/handler.js" type="text/javascript" ></script>
+	<script src="static/app.js" type="text/javascript" ></script>
+	
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+	<link href="https://rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css" rel="stylesheet" type="text/css" >
+	<link href="static/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div class="app-view">
+	<nav class="navbar">
+		<a class="navbar-brand" ui-sref="home">
+			<span><i class="material-icons" style="vertical-align: middle;">chat</i> Let's Chat</span>
+		</a>
+		<div class="my-lg-0">
+			<a ui-sref="login"  class="btn btn-outline-light">Login</a>
+			<a ui-sref="signup" class="btn btn-outline-light">Sign Up</a>
+		</div>
+	</nav>
+	<div class="main-view">
+		<div class="container-fluid">
+		<div class="row no-gutters h-100">
+			<div class="col-lg-3 no-gutters" id="login">
+							<div class="jumbotron jumbotron-fluid">
+								<div class="container" style="height: 100%; margin-left: 10px;">
+									<h1 class="display-4">Welcome</h1>
+									<p class="lead">
+										<span><i class="material-icons" style="vertical-align: middle;">
+											person
+										</i> people online</span>
+									</p>
+									<ul id="people" class="display-4"></ul>
+									<form class="form-inline">
+										<div class="form-group mx-sm-3 mb-2">
+											<input class="form-control" type="text" placeholder="Username" id="name">	
+										</div>	
+										<button type="submit" id="join" value="Join" class="btn btn-primary mb-2">Submit</button>
+									</form>
+								</div>
+							</div>
+			</div>
+			<div class="col-lg-9">
+				<div ui-view></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+</html>

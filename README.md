@@ -4,20 +4,15 @@
 
 ## Installation:
 ### Dependencies:
-
 - Express js
 - Jquery
 - emojionearea
 - fs
 
-```npm install --save socket.io```
+```npm install```
 
 ## Usage:
 
-**using nodemon**
-
-```nodemon main.js```
-
-**using node js**
-
-```node main.js```
+```bash
+npm start
+```
